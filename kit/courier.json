@@ -1,0 +1,54 @@
+{
+  "id": "courier",
+  "kit": 1,
+  "parts": [
+    {
+      "cost": {"fuel":["/","place.dist",4]},
+      "max": 0,
+      "on": "stop",
+      "part": "action/drive",
+      "says": "Take the parcel to this stop",
+      "then": [["go"],["set","place.parcel",0]],
+      "value": 1,
+      "when": [["=","place.parcel",1]]
+    },
+    {
+      "calc": {},
+      "ground": "path",
+      "mark": "post",
+      "part": "board/stops",
+      "places": "stop",
+      "props": {"owner":""}
+    },
+    {
+      "ends": true,
+      "part": "goal/delivered",
+      "says": "All parcels are home. Time for a rest.",
+      "score": null,
+      "when": [["=","all.count.parcel",0]],
+      "win": true
+    },
+    {
+      "ends": true,
+      "part": "goal/empty",
+      "says": "Time for a rest. You can try a shorter route.",
+      "score": null,
+      "when": [["<=","fuel",0],[">","all.count.parcel",0]],
+      "win": false
+    },
+    {
+      "at": null,
+      "grid": {"at":[2,2],"cell":[1,1],"cols":7,"gap":3,"rows":1},
+      "groups": {},
+      "part": "place/stop",
+      "props": {"parcel":1},
+      "says": "",
+      "tags": []
+    },
+    {"ops":[["paint","path",2,2,26,2]],"part":"scene/route","says":""},
+    {"max":null,"min":0,"part":"store/fuel","per":"game","says":"","show":true,"start":6}
+  ],
+  "rules": "none@0",
+  "says": "Deliver parcels to seven stops within your fuel budget.",
+  "size": [32,8,16]
+}

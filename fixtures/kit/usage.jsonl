@@ -1,0 +1,14 @@
+{"t":1794484800000,"tool":"world_build","ms":1,"in":50,"out":250,"err":"noGame","kit":"part:action"}
+{"t":1794484800001,"tool":"world_build","ms":1,"in":50,"out":250,"err":"townSize","kit":"edit:action"}
+{"t":1794484800002,"tool":"world_build","ms":1,"in":50,"out":250,"err":"gameRep","kit":"part:action"}
+{"t":1794484800003,"tool":"world_build","ms":1,"in":50,"out":250,"err":"part","kit":"edit:action"}
+{"t":1794484800004,"tool":"world_build","ms":1,"in":50,"out":250,"err":null,"kit":"part:action"}
+{"t":1794484800005,"tool":"world_build","ms":1,"in":50,"out":250,"err":null,"kit":"edit:action"}
+{"t":1794484800006,"tool":"world_build","ms":1,"in":50,"out":150,"err":"noGame","kit":"part:beat"}
+{"t":1794484800007,"tool":"world_build","ms":1,"in":50,"out":150,"err":"townSize","kit":"edit:beat"}
+{"t":1794484800008,"tool":"world_build","ms":1,"in":50,"out":150,"err":"part","kit":"part:beat"}
+{"t":1794484800009,"tool":"world_look","ms":1,"in":20,"out":1300,"err":null,"kit":"view:catalogue"}
+{"t":1794484800010,"tool":"world_open","ms":1,"in":20,"out":500,"err":null,"kit":"open:property"}
+{"t":1794484800011,"tool":"world_open","ms":1,"in":20,"out":500,"err":null,"kit":"open:quest"}
+{"t":1794484800012,"tool":"world_build","ms":1,"in":20,"out":100,"err":null,"kit":"do"}
+{"t":1794484800013,"tool":"world_build","ms":1,"in":20,"out":100,"err":null,"kit":"kit:private-project"}

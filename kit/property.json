@@ -1,0 +1,238 @@
+{
+  "id": "property",
+  "kit": 1,
+  "parts": [
+    {
+      "cost": {"cash":"place.price"},
+      "max": 0,
+      "on": "place",
+      "part": "action/acquire",
+      "says": "Buy the lot",
+      "then": [["set","place.owner","me"],["set","place.level",1],["stamp","cottage"]],
+      "value": ["-",60,"place.price"],
+      "when": [["=","place.owner",""]]
+    },
+    {
+      "cost": {},
+      "max": 0,
+      "on": "place",
+      "part": "action/divest",
+      "says": "Sell the lot",
+      "then": [
+        ["add","cash",["/",["*",4,"place.worth"],5]],
+        ["set","place.owner",""],
+        ["set","place.level",0],
+        ["set","place.leased",0],
+        ["set","place.insured",0],
+        ["clear"]
+      ],
+      "value": 0,
+      "when": [["=","place.owner","me"]]
+    },
+    {
+      "cost": {"cash":8},
+      "max": 0,
+      "on": "place",
+      "part": "action/insure",
+      "says": "Protect the home",
+      "then": [["set","place.insured",1]],
+      "value": 35,
+      "when": [["=","place.owner","me"],[">=","place.level",2],["=","place.insured",0]]
+    },
+    {
+      "cost": {"cash":5},
+      "max": 0,
+      "on": "place",
+      "part": "action/lease",
+      "says": "Lease the lot",
+      "then": [["set","place.leased",1]],
+      "value": 50,
+      "when": [["=","place.owner","me"],["=","place.leased",0]]
+    },
+    {
+      "cost": {"cash":40},
+      "max": 0,
+      "on": "place",
+      "part": "action/redevelop",
+      "says": "Build a tower",
+      "then": [["set","place.level",3],["stamp","tower"]],
+      "value": 25,
+      "when": [["=","place.owner","me"],["=","place.level",2]]
+    },
+    {
+      "cost": {"cash":15},
+      "max": 0,
+      "on": "place",
+      "part": "action/renovate",
+      "says": "Grow the home",
+      "then": [["set","place.level",2],["stamp","house"]],
+      "value": 30,
+      "when": [["=","place.owner","me"],["=","place.level",1]]
+    },
+    {
+      "after": "",
+      "chapter": "",
+      "goal": "Own a lot.",
+      "part": "beat/first-lot",
+      "says": "",
+      "then": [],
+      "when": [[">=","my.count",1]]
+    },
+    {
+      "after": "first-lot",
+      "chapter": "",
+      "goal": "Lease a lot to earn rent.",
+      "part": "beat/first-rent",
+      "says": "Rent comes in every quarter now.",
+      "then": [],
+      "when": [[">=","my.sum.rent",1]]
+    },
+    {
+      "after": "first-rent",
+      "chapter": "",
+      "goal": "Reach five hundred in worth.",
+      "part": "beat/grow",
+      "says": "",
+      "then": [],
+      "when": [[">=",["+","cash","my.sum.worth"],500]]
+    },
+    {
+      "calc": {
+        "rent": ["*","place.leased",["+",["/","place.price",5],["*",4,"place.level"]]],
+        "worth": ["+","place.price",["*",10,["*","place.level",["-","place.level",1]]]]
+      },
+      "ground": "grass",
+      "mark": "ring",
+      "part": "board/lots",
+      "places": "lot",
+      "props": {"insured":0,"leased":0,"level":0,"owner":""}
+    },
+    {
+      "moves": 2,
+      "part": "bot/steady",
+      "rules": [
+        {"act":"lease","by":0,"pick":"first","when":[]},
+        {"act":"acquire","by":"place.price","pick":"min","when":[["<","my.count",6]]},
+        {"act":"renovate","by":0,"pick":"first","when":[]},
+        {"act":"insure","by":0,"pick":"first","when":[]},
+        {"act":"redevelop","by":0,"pick":"first","when":[]}
+      ]
+    },
+    {
+      "cards": [
+        {"id":"calm","says":"A quiet quarter.","then":[],"weight":3,"when":[]},
+        {
+          "id": "storm",
+          "says": "Rain lowers unprotected homes.",
+          "then": [
+            [
+              "each",
+              "lot",
+              [
+                [
+                  "if",
+                  ["and",["=","place.insured",0],[">","place.level",1]],
+                  [
+                    ["set","place.level",["-","place.level",1]],
+                    ["if",["=","place.level",1],[["stamp","cottage"]],[["stamp","house"]]]
+                  ]
+                ]
+              ]
+            ]
+          ],
+          "weight": 2,
+          "when": []
+        },
+        {
+          "id": "fair",
+          "says": "Each player gains ten.",
+          "then": [["each","player",[["add","cash",10]]]],
+          "weight": 2,
+          "when": []
+        },
+        {
+          "id": "boom",
+          "says": "Prices rise by five.",
+          "then": [["each","lot",[["set","place.price",["+","place.price",5]]]]],
+          "weight": 1,
+          "when": []
+        }
+      ],
+      "draw": "round",
+      "part": "deck/news"
+    },
+    {
+      "ends": true,
+      "part": "goal/worth",
+      "says": "",
+      "score": ["+","cash","my.sum.worth"],
+      "when": [],
+      "win": true
+    },
+    {"part":"mood/rest","rank":1,"tune":"rest","when":[[">=","turn",10]]},
+    {"part":"mood/stroll","rank":0,"tune":"stroll","when":[]},
+    {
+      "at": null,
+      "grid": {"at":[1,1],"cell":[8,8],"cols":4,"gap":2,"rows":4},
+      "groups": {"garden":[2,2,3,3],"harbour":[0,0,1,1],"hill":[0,2,1,3],"market":[2,0,3,1]},
+      "part": "place/lot",
+      "props": {"price":{"garden":20,"harbour":40,"hill":25,"market":30}},
+      "says": "",
+      "tags": []
+    },
+    {"bot":"steady","colour":"slate","part":"player/rival","says":""},
+    {"bot":"","colour":"tile","part":"player/you","says":""},
+    {
+      "ops": [
+        ["paint","road",9,0,10,39],
+        ["paint","road",0,9,39,10],
+        ["paint","road",19,0,20,39],
+        ["paint","road",0,19,39,20],
+        ["paint","road",29,0,30,39],
+        ["paint","road",0,29,39,30]
+      ],
+      "part": "scene/streets",
+      "says": ""
+    },
+    {"max":null,"min":0,"part":"store/cash","per":"player","says":"","show":true,"start":100},
+    {
+      "asks": [
+        {"id":"yes","next":"","says":"Yes please","then":[["flag","tips",1]]},
+        {"id":"no","next":"","says":"No thanks","then":[]}
+      ],
+      "lines": ["Hello. I am Pip.","Shall I show you the best buy?"],
+      "on": "start",
+      "part": "talk/hello",
+      "voice": "pip"
+    },
+    {
+      "bpm": 72,
+      "part": "tune/rest",
+      "root": 60,
+      "scale": [0,2,4,7,9],
+      "voices": [{"oct":0,"steps":"0 - . . 2 - . . 3 - . . 2 - . .","vol":5,"wave":"triangle"}]
+    },
+    {
+      "bpm": 84,
+      "part": "tune/stroll",
+      "root": 60,
+      "scale": [0,2,4,7,9],
+      "voices": [
+        {"oct":0,"steps":"0 . 2 . 4 . 2 . 0 . 4 . 3 - - .","vol":5,"wave":"triangle"},
+        {"oct":-1,"steps":"0 - - - 3 - - - 0 - - - 4 - - -","vol":5,"wave":"sine"}
+      ]
+    },
+    {
+      "end": [["add","cash","my.sum.rent"]],
+      "last": 12,
+      "moves": 3,
+      "order": ["you","rival"],
+      "part": "turn/quarter",
+      "says": "quarter"
+    },
+    {"colour":"amber","part":"voice/pip","says":"Pip"}
+  ],
+  "says": "Buy and grow lots across four districts.",
+  "size": [40,40,16],
+  "v": 1
+}

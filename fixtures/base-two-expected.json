@@ -1,0 +1,53 @@
+{
+  "tiny-garden": {
+    "hash": "5e29d8f5",
+    "count": 313,
+    "rev": 3
+  },
+  "small-town": {
+    "hash": "822d8151",
+    "count": 2371,
+    "rev": 5
+  },
+  "hill-village": {
+    "hash": "1cf93868",
+    "count": 9403,
+    "rev": 8
+  },
+  "town": {
+    "hash": "17d5b520",
+    "count": 4735,
+    "rev": 24,
+    "hearts": 192,
+    "people": 72,
+    "happy": 88,
+    "coins": 32,
+    "stars": 2
+  },
+  "batches": [
+    [["build","home",4,3],["grow",4,3],["turn"]],
+    [["turn"]],
+    [["build","shop",3,0],["turn"]],
+    [["build","home",5,0],["turn"]],
+    [["build","work",3,1],["turn"]],
+    [["build","park",5,1],["build","road",1,0],["turn"]],
+    [["build","home",5,2],["turn"]],
+    [["build","shop",0,0],["turn"]],
+    [["grow",5,0],["turn"]],
+    [["build","work",2,0],["build","road",1,1],["turn"]],
+    [["grow",5,2],["build","shop",0,1],["turn"]],
+    [["build","home",1,2],["build","road",0,3],["turn"]],
+    [["build","work",2,1],["build","home",0,4],["turn"]],
+    [["build","shop",0,2],["build","road",2,5],["build","home",2,4],["turn"]],
+    [["build","work",3,2],["build","road",1,3],["turn"]],
+    [["build","home",1,4],["build","road",2,3],["build","shop",2,2],["build","road",3,5],["turn"]],
+    [["build","home",3,4],["build","road",4,5],["build","road",1,5],["build","park",0,5],["build","work",5,5],["turn"]],
+    [["grow",0,4],["build","shop",3,3],["turn"]],
+    [["grow",1,4],["grow",2,0],["turn"]],
+    [["grow",3,4],["grow",0,0],["turn"]],
+    [["build","home",4,4],["grow",2,1],["grow",4,4],["turn"]],
+    [["grow",3,0],["grow",1,2],["turn"]],
+    [["grow",3,1],["grow",2,4],["turn"]],
+    [["grow",0,1],["grow",0,2],["turn"]]
+  ]
+}

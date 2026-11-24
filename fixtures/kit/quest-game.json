@@ -1,0 +1,63 @@
+{
+  "open": {
+    "name": "quest-game",
+    "kit": "quest",
+    "seed": 7
+  },
+  "batches": [
+    [
+      [
+        "say",
+        "yes"
+      ]
+    ],
+    [
+      [
+        "say",
+        "thanks"
+      ],
+      [
+        "do",
+        "pick",
+        "orchard"
+      ]
+    ],
+    [
+      [
+        "do",
+        "pick",
+        "orchard"
+      ]
+    ],
+    [
+      [
+        "do",
+        "pick",
+        "orchard"
+      ],
+      [
+        "say",
+        "stone"
+      ]
+    ],
+    [
+      [
+        "box",
+        "rock",
+        14,
+        1,
+        14,
+        15,
+        1,
+        16
+      ]
+    ],
+    [
+      [
+        "do",
+        "give",
+        "bakery"
+      ]
+    ]
+  ]
+}

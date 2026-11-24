@@ -1,0 +1,189 @@
+{
+  "id": "garden",
+  "kit": 1,
+  "parts": [
+    {
+      "cost": {},
+      "max": 0,
+      "on": "plot",
+      "part": "action/harvest",
+      "says": "Pick a basket",
+      "then": [["add","baskets",1],["set","place.crop",0],["set","place.wet",0],["clear"]],
+      "value": 1,
+      "when": [["=","place.crop",3]]
+    },
+    {
+      "cost": {"seeds":1},
+      "max": 0,
+      "on": "plot",
+      "part": "action/plant",
+      "says": "Plant a crop",
+      "then": [["set","place.crop",1],["ops",[["box","leaf","$x1",1,"$z1","$x2",1,"$z2"]]]],
+      "value": 1,
+      "when": [["=","place.crop",0]]
+    },
+    {
+      "cost": {},
+      "max": 0,
+      "on": "plot",
+      "part": "action/water",
+      "says": "Water the crop",
+      "then": [["set","place.wet",1]],
+      "value": 1,
+      "when": [[">","place.crop",0],["<","place.crop",3],["=","place.wet",0]]
+    },
+    {
+      "after": "sprout",
+      "chapter": "",
+      "goal": "Gather twelve baskets.",
+      "part": "beat/baskets",
+      "says": "",
+      "then": [],
+      "when": [[">=","baskets",12]]
+    },
+    {
+      "after": "",
+      "chapter": "",
+      "goal": "Plant the first crop.",
+      "part": "beat/sprout",
+      "says": "",
+      "then": [],
+      "when": [[">=","all.sum.crop",1]]
+    },
+    {
+      "cards": [
+        {
+          "id": "spring",
+          "says": "Soft spring rain.",
+          "then": [],
+          "weight": 1,
+          "when": [["=",["%",["-","turn",1],4],0]]
+        },
+        {
+          "id": "summer",
+          "says": "A warm summer day.",
+          "then": [],
+          "weight": 1,
+          "when": [["=",["%",["-","turn",1],4],1]]
+        },
+        {
+          "id": "autumn",
+          "says": "Cool autumn air.",
+          "then": [],
+          "weight": 1,
+          "when": [["=",["%",["-","turn",1],4],2]]
+        },
+        {
+          "id": "winter",
+          "says": "A still winter day.",
+          "then": [],
+          "weight": 1,
+          "when": [["=",["%",["-","turn",1],4],3]]
+        }
+      ],
+      "draw": "round",
+      "part": "deck/weather"
+    },
+    {
+      "ends": true,
+      "part": "goal/harvest",
+      "says": "Twelve baskets to share. The garden can rest.",
+      "score": null,
+      "when": [[">=","baskets",12]],
+      "win": true
+    },
+    {
+      "ends": true,
+      "part": "goal/rest",
+      "says": "The garden can rest. You can try again.",
+      "score": null,
+      "when": [[">=","turn",16],["<","baskets",12]],
+      "win": false
+    },
+    {"part":"mood/autumn","rank":2,"tune":"autumn","when":[["=",["%",["-","turn",1],4],2]]},
+    {"part":"mood/spring","rank":0,"tune":"spring","when":[]},
+    {"part":"mood/summer","rank":1,"tune":"summer","when":[["=",["%",["-","turn",1],4],1]]},
+    {"part":"mood/winter","rank":3,"tune":"winter","when":[["=",["%",["-","turn",1],4],3]]},
+    {
+      "at": null,
+      "grid": {"at":[2,2],"cell":[2,2],"cols":2,"gap":3,"rows":2},
+      "groups": {},
+      "part": "place/plot",
+      "props": {"crop":0,"wet":0},
+      "says": "",
+      "tags": []
+    },
+    {
+      "ops": [
+        ["paint","earth",2,2,3,3],
+        ["paint","earth",7,2,8,3],
+        ["paint","earth",2,7,3,8],
+        ["paint","earth",7,7,8,8]
+      ],
+      "part": "scene/soil",
+      "says": ""
+    },
+    {"max":null,"min":0,"part":"store/baskets","per":"game","says":"","show":true,"start":0},
+    {"max":null,"min":0,"part":"store/seeds","per":"game","says":"","show":true,"start":12},
+    {
+      "bpm": 88,
+      "part": "tune/autumn",
+      "root": 60,
+      "scale": [0,2,4,7,9],
+      "voices": [{"oct":0,"steps":"0 . 2 . 3 - . .","vol":5,"wave":"triangle"}]
+    },
+    {
+      "bpm": 72,
+      "part": "tune/spring",
+      "root": 60,
+      "scale": [0,2,4,7,9],
+      "voices": [{"oct":0,"steps":"0 . 2 . 3 - . .","vol":5,"wave":"triangle"}]
+    },
+    {
+      "bpm": 80,
+      "part": "tune/summer",
+      "root": 60,
+      "scale": [0,2,4,7,9],
+      "voices": [{"oct":0,"steps":"0 . 2 . 3 - . .","vol":5,"wave":"triangle"}]
+    },
+    {
+      "bpm": 96,
+      "part": "tune/winter",
+      "root": 60,
+      "scale": [0,2,4,7,9],
+      "voices": [{"oct":0,"steps":"0 . 2 . 3 - . .","vol":5,"wave":"triangle"}]
+    },
+    {
+      "end": [
+        [
+          "each",
+          "plot",
+          [
+            [
+              "if",
+              ["and",["=","place.wet",1],[">","place.crop",0]],
+              [
+                ["set","place.crop",["min",3,["+","place.crop",1]]],
+                [
+                  "if",
+                  ["=","place.crop",3],
+                  [["ops",[["box","leaf","$x1",1,"$z1","$x2",3,"$z2"]]]],
+                  [["ops",[["box","leaf","$x1",1,"$z1","$x2",2,"$z2"]]]]
+                ]
+              ]
+            ],
+            ["set","place.wet",0]
+          ]
+        ]
+      ],
+      "last": 16,
+      "moves": 0,
+      "order": [],
+      "part": "turn/day",
+      "says": "day"
+    }
+  ],
+  "rules": "none@0",
+  "says": "Plant, water and harvest crops through four seasons.",
+  "size": [12,12,16]
+}

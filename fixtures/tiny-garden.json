@@ -1,0 +1,100 @@
+{
+  "open": {
+    "name": "tiny-garden",
+    "size": [
+      12,
+      12,
+      12
+    ],
+    "seed": 3
+  },
+  "batches": [
+    [
+      [
+        "hill",
+        "grass",
+        6,
+        6,
+        4,
+        3
+      ],
+      [
+        "paint",
+        "path",
+        4,
+        0,
+        4,
+        11
+      ],
+      [
+        "paint",
+        "water",
+        8,
+        8,
+        10,
+        10
+      ],
+      [
+        "cover",
+        "earth",
+        6,
+        0,
+        8,
+        2,
+        3
+      ]
+    ],
+    [
+      [
+        "stamp",
+        "tree",
+        0,
+        0,
+        0
+      ],
+      [
+        "stamp",
+        "tree",
+        0,
+        8,
+        1
+      ],
+      [
+        "stamp",
+        "tree",
+        8,
+        0,
+        2
+      ],
+      [
+        "stamp",
+        "bench",
+        5,
+        10,
+        0
+      ]
+    ],
+    [
+      [
+        "pet",
+        "cream",
+        2,
+        5
+      ],
+      [
+        "drop",
+        "sun",
+        6,
+        5,
+        1
+      ]
+    ]
+  ],
+  "calls": 5,
+  "bytes": {
+    "world_open": 1200,
+    "world_build": 400,
+    "world_look": 3000,
+    "world_undo": 200
+  }
+}

@@ -1,0 +1,67 @@
+{
+  "id": "town",
+  "kit": 1,
+  "parts": [
+    {
+      "after": "people",
+      "chapter": "",
+      "goal": "Reach one hundred and twenty hearts.",
+      "part": "beat/hearts",
+      "says": "",
+      "then": [],
+      "when": [[">=","town.hearts",120]]
+    },
+    {
+      "after": "",
+      "chapter": "",
+      "goal": "Welcome four people.",
+      "part": "beat/people",
+      "says": "",
+      "then": [],
+      "when": [[">=","town.people",4]]
+    },
+    {
+      "after": "hearts",
+      "chapter": "",
+      "goal": "Grow towards two stars.",
+      "part": "beat/stars",
+      "says": "The town has room to grow.",
+      "then": [],
+      "when": [[">=","town.stars",2]]
+    },
+    {"part":"mood/bright","rank":1,"tune":"bright","when":[[">=","town.happy",70]]},
+    {"part":"mood/calm","rank":0,"tune":"calm","when":[]},
+    {
+      "asks": [],
+      "lines": ["The town has grown.","There is space for new ideas."],
+      "on": "beat/hearts",
+      "part": "talk/hearts",
+      "voice": "pella"
+    },
+    {
+      "asks": [],
+      "lines": ["Welcome. I am Pella.","Build homes and paths for the town."],
+      "on": "start",
+      "part": "talk/hello",
+      "voice": "pella"
+    },
+    {
+      "bpm": 96,
+      "part": "tune/bright",
+      "root": 60,
+      "scale": [0,2,4,7,9],
+      "voices": [{"oct":0,"steps":"0 . 2 . 4 . 2 .","vol":5,"wave":"triangle"}]
+    },
+    {
+      "bpm": 72,
+      "part": "tune/calm",
+      "root": 60,
+      "scale": [0,2,4,7,9],
+      "voices": [{"oct":0,"steps":"0 - . . 2 - . .","vol":5,"wave":"triangle"}]
+    },
+    {"colour":"amber","part":"voice/pella","says":"Pella"}
+  ],
+  "rules": "town@1",
+  "says": "Grow a town with neighbours, shared goals and gentle music.",
+  "size": [36,36,16]
+}

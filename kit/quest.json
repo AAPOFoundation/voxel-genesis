@@ -1,0 +1,291 @@
+{
+  "id": "quest",
+  "kit": 1,
+  "parts": [
+    {
+      "cost": {
+        "apples": 3
+      },
+      "max": 0,
+      "on": "bakery",
+      "part": "action/give",
+      "says": "You can share the apples",
+      "then": [
+        ["flag","delivered",1]
+      ],
+      "value": 1,
+      "when": [
+        [">=","apples",3],
+        ["=","beat.cross",1]
+      ]
+    },
+    {
+      "cost": {},
+      "max": 0,
+      "on": "orchard",
+      "part": "action/pick",
+      "says": "Grow the apple pile",
+      "then": [
+        ["add","apples",1]
+      ],
+      "value": 1,
+      "when": [
+        ["<","apples",3],
+        ["=","flag.helping",1]
+      ]
+    },
+    {
+      "after": "gather",
+      "chapter": "",
+      "goal": "Build a path across the stream.",
+      "part": "beat/cross",
+      "says": "You can cross the stream now.",
+      "then": [],
+      "when": [
+        [">=","built.river-gap",6]
+      ]
+    },
+    {
+      "after": "cross",
+      "chapter": "",
+      "goal": "You can give the apples to Pip at the bakery.",
+      "part": "beat/deliver",
+      "says": "",
+      "then": [],
+      "when": [
+        ["=","flag.delivered",1]
+      ]
+    },
+    {
+      "after": "meet",
+      "chapter": "",
+      "goal": "Grow a pile of three apples in the orchard.",
+      "part": "beat/gather",
+      "says": "",
+      "then": [],
+      "when": [
+        [">=","apples",3]
+      ]
+    },
+    {
+      "after": "",
+      "chapter": "",
+      "goal": "You can say yes to Pip.",
+      "part": "beat/meet",
+      "says": "",
+      "then": [],
+      "when": [
+        ["=","flag.helping",1]
+      ]
+    },
+    {
+      "ends": true,
+      "part": "goal/share",
+      "says": "You helped the whole village.",
+      "score": null,
+      "when": [
+        ["=","beat.deliver",1]
+      ],
+      "win": true
+    },
+    {
+      "part": "mood/home",
+      "rank": 1,
+      "tune": "home",
+      "when": [
+        ["=","beat.cross",1]
+      ]
+    },
+    {
+      "part": "mood/stroll",
+      "rank": 0,
+      "tune": "stroll",
+      "when": [
+        ["=","flag.helping",1]
+      ]
+    },
+    {
+      "at": [20,22,29,30],
+      "grid": null,
+      "groups": {},
+      "part": "place/bakery",
+      "props": {},
+      "says": "The bakery",
+      "tags": []
+    },
+    {
+      "at": [2,2,10,10],
+      "grid": null,
+      "groups": {},
+      "part": "place/orchard",
+      "props": {},
+      "says": "The orchard",
+      "tags": []
+    },
+    {
+      "at": [14,14,15,16],
+      "grid": null,
+      "groups": {},
+      "part": "place/river-gap",
+      "props": {},
+      "says": "The stream",
+      "tags": []
+    },
+    {
+      "ops": [
+        ["box","water",0,0,14,31,0,16],
+        ["stamp","cottage",22,23,0],
+        ["stamp","tree",4,4,0]
+      ],
+      "part": "scene/village",
+      "says": ""
+    },
+    {
+      "max": 3,
+      "min": 0,
+      "part": "store/apples",
+      "per": "player",
+      "says": "apples",
+      "show": true,
+      "start": 0
+    },
+    {
+      "asks": [
+        {
+          "id": "yes",
+          "next": "",
+          "says": "Yes please",
+          "then": [
+            ["flag","helping",1]
+          ]
+        },
+        {
+          "id": "wait",
+          "next": "hello",
+          "says": "Keep a bun for me",
+          "then": []
+        }
+      ],
+      "lines": ["The apples will be here."],
+      "on": "",
+      "part": "talk/again",
+      "voice": "pip"
+    },
+    {
+      "asks": [
+        {
+          "id": "stone",
+          "next": "",
+          "says": "Build a stone path",
+          "then": [
+            ["flag","path",1]
+          ]
+        },
+        {
+          "id": "look",
+          "next": "",
+          "says": "I will look first",
+          "then": [
+            ["flag","path",0]
+          ]
+        }
+      ],
+      "lines": ["Build a stone path across the stream.","The gap needs six blocks."],
+      "on": "beat/gather",
+      "part": "talk/ferry",
+      "voice": "moss"
+    },
+    {
+      "asks": [
+        {
+          "id": "thanks",
+          "next": "",
+          "says": "Yes please",
+          "then": [
+            ["flag","thanks",1]
+          ]
+        },
+        {
+          "id": "look",
+          "next": "",
+          "says": "I can find them",
+          "then": [
+            ["flag","thanks",0]
+          ]
+        }
+      ],
+      "lines": ["The ripe apples are by the tree."],
+      "on": "beat/meet",
+      "part": "talk/garden",
+      "voice": "wren"
+    },
+    {
+      "asks": [
+        {
+          "id": "yes",
+          "next": "",
+          "says": "Yes please",
+          "then": [
+            ["flag","helping",1]
+          ]
+        },
+        {
+          "id": "later",
+          "next": "again",
+          "says": "No thanks",
+          "then": []
+        }
+      ],
+      "lines": ["Hello. I am Pip.","Shall we share some apple buns?"],
+      "on": "start",
+      "part": "talk/hello",
+      "voice": "pip"
+    },
+    {
+      "bpm": 72,
+      "part": "tune/home",
+      "root": 60,
+      "scale": [0,2,4,7,9],
+      "voices": [
+        {
+          "oct": 0,
+          "steps": "0 - . . 2 - . . 3 - . . 0 - - .",
+          "vol": 5,
+          "wave": "triangle"
+        }
+      ]
+    },
+    {
+      "bpm": 84,
+      "part": "tune/stroll",
+      "root": 60,
+      "scale": [0,2,4,7,9],
+      "voices": [
+        {
+          "oct": 0,
+          "steps": "0 . 2 . 4 . 2 . 0 . 4 . 3 - - .",
+          "vol": 5,
+          "wave": "triangle"
+        }
+      ]
+    },
+    {
+      "colour": "amber",
+      "part": "voice/moss",
+      "says": "Moss"
+    },
+    {
+      "colour": "amber",
+      "part": "voice/pip",
+      "says": "Pip"
+    },
+    {
+      "colour": "amber",
+      "part": "voice/wren",
+      "says": "Wren"
+    }
+  ],
+  "says": "You can share apples across the stream.",
+  "size": [32,32,16],
+  "v": 1
+}

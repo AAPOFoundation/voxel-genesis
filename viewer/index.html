@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Security-Policy"
+  content="default-src 'self'; style-src 'self' 'sha256-__STYLE_HASH__';
+    object-src 'none'; base-uri 'none'">
+<title>__title__</title>
+<style>
+*  {
+  box-sizing: border-box;
+}
+body  {
+  margin: 0;
+  background: #f8f4ed;
+  color: #1d1d1d;
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 20px;
+}
+main  {
+  position: relative;
+  max-width: 1440px;
+  margin: auto;
+  padding: 20px;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+main > :not(canvas) {
+  flex: none;
+}
+header  {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  border-bottom: 2px solid #be5727;
+}
+h1  {
+  font-size: clamp(20px, 3vw, 30px);
+  font-weight: 600;
+  line-height: 1.2;
+  margin: 8px 0 16px;
+  overflow-wrap: anywhere;
+  max-width: 100%;
+}
+p  {
+  line-height: 1.5;
+}
+canvas  {
+  display: block;
+  width: 100%;
+  flex: 1 1 0;
+  min-height: 0;
+  height: 0;
+  touch-action: none;
+}
+nav  {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+}
+button  {
+  min-height: 44px;
+  min-width: 44px;
+  padding: 10px 16px;
+  background: #f8f4ed;
+  color: #1d1d1d;
+  border: 2px solid #1d1d1d;
+  border-radius: 10px;
+  font: inherit;
+  font-weight: 700;
+  box-shadow: 3px 3px 0 #1d1d1d;
+  cursor: pointer;
+}
+button:hover, button:focus-visible  {
+  background: #fdb817;
+}
+button:focus-visible  {
+  outline: 2px solid #1d1d1d;
+  outline-offset: 3px;
+}
+#status  {
+  min-height: 24px;
+  text-align: center;
+}
+#hud:not([hidden]) {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 0;
+}
+#hud > span {
+  padding: 6px 10px;
+  border: 2px solid #be5727;
+  border-radius: 10px;
+}
+#hud-goal {
+  accent-color: #fdb817;
+  flex: 1 1 120px;
+  min-width: 0;
+  max-width: 100%;
+}
+#hud-end {
+  flex-basis: 100%;
+  margin: 0;
+}
+#hud-end:empty {
+  display: none;
+}
+#hud-needs {
+  flex-basis: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+#hud-needs span {
+  font-size: 14px;
+  line-height: 18px;
+  padding: 2px 6px;
+  background: #fdb817;
+  border-radius: 10px;
+}
+#kit {
+  font-size: 14px;
+  line-height: 18px;
+}
+#kit:not([hidden]) {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+#kit p {
+  flex-basis: 100%;
+  margin: 0;
+  line-height: 18px;
+}
+#kit span {
+  overflow-wrap: anywhere;
+}
+#feed {
+  position: absolute;
+  left: 20px;
+  right: 20px;
+  max-height: 78px;
+  white-space: nowrap;
+  overflow: auto;
+  background: #f8f4ed;
+  font-size: 16px;
+  line-height: 22px;
+  padding-top: 6px;
+}
+#feed p {
+  margin: 0 0 4px;
+  line-height: 22px;
+}
+#speech {
+  position: absolute;
+  left: 20px;
+  right: 20px;
+  transform: translateY(-100%);
+  max-height: 180px;
+  overflow: auto;
+  background: #f8f4ed;
+  border: 2px solid #be5727;
+  border-radius: 10px;
+  padding: 8px;
+  font-size: 14px;
+  line-height: 18px;
+}
+#speech p, #speech ul {
+  margin: 0;
+  line-height: 18px;
+}
+@media (max-width: 480px)  {
+body {
+    font-size: 14px;
+    line-height: 18px;
+  }
+main {
+    padding: 12px;
+  }
+button {
+    padding: 10px;
+  }
+#hud:not([hidden]) {
+    gap: 4px;
+    padding: 4px 0;
+  }
+#hud > span {
+    padding: 2px 4px;
+  }
+#hud-needs span {
+    font-size: 12px;
+    line-height: 16px;
+  }
+#speech, #feed {
+    left: 12px;
+    right: 12px;
+  }
+#feed {
+    white-space: normal;
+    overflow-wrap: anywhere;
+    max-height: none;
+  }
+#feed p:nth-last-child(n+3) {
+    display: none;
+  }
+}
+@media (prefers-reduced-motion: reduce)  {
+  *  {
+    animation: none;
+    transition: none;
+    scroll-behavior: auto;
+  }
+}
+</style>
+<script src="/engine.js" defer></script>
+<script type="module" src="/kit-panel.mjs"></script>
+<script type="module" src="/viewer.mjs"></script>
+</head>
+<body>
+<main>
+<header><h1 id="name">__title__</h1><p id="count"></p></header>
+<section id="hud" hidden aria-live="polite">
+<span id="hud-turn"></span><span id="hud-people"></span>
+<span id="hud-happy"></span><span id="hud-coins"></span>
+<label id="hud-label" for="hud-goal"></label><progress id="hud-goal" max="120"></progress>
+<div id="hud-needs"></div>
+<p id="hud-end"></p>
+</section>
+<section id="kit" hidden aria-live="polite"></section>
+<section id="feed" hidden aria-live="polite"></section>
+<canvas id="world" tabindex="0" aria-label="__canvas__"></canvas>
+<section id="speech" hidden aria-live="polite"></section>
+<nav aria-label="__title__">
+<button id="left" aria-label="__left__">__left__</button>
+<button id="right" aria-label="__right__">__right__</button>
+<button id="zoom-in" aria-label="__zoomIn__">__zoomIn__</button>
+<button id="zoom-out" aria-label="__zoomOut__">__zoomOut__</button>
+<button id="pause" aria-label="__pause__" aria-pressed="false">__pause__</button>
+<button id="sound" aria-label="__soundOff__" aria-pressed="false">__soundOff__</button>
+</nav>
+<p id="status" role="status">__waiting__</p>
+<noscript>__noscript__</noscript>
+</main>
+</body>
+</html>

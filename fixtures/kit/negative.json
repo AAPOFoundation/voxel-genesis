@@ -1,0 +1,618 @@
+[
+  {
+    "name": "id",
+    "ops": [
+      [
+        "part",
+        {
+          "part": "store/7bad"
+        }
+      ]
+    ],
+    "path": "part"
+  },
+  {
+    "name": "long id",
+    "ops": [
+      [
+        "part",
+        {
+          "part": "store/abcdefghijklmnopqrstuvwxyz"
+        }
+      ]
+    ],
+    "path": "part"
+  },
+  {
+    "name": "part bytes",
+    "ops": [
+      [
+        "part",
+        {
+          "part": "voice/pip",
+          "says": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        }
+      ]
+    ],
+    "path": "part"
+  },
+  {
+    "name": "infix",
+    "ops": [
+      [
+        "part",
+        {
+          "part": "action/buy",
+          "when": "cash >= 5"
+        }
+      ]
+    ],
+    "path": "when"
+  },
+  {
+    "name": "store start",
+    "ops": [
+      [
+        "part",
+        {
+          "part": "store/x",
+          "start": []
+        }
+      ]
+    ],
+    "path": "start"
+  },
+  {
+    "name": "store min",
+    "ops": [
+      [
+        "part",
+        {
+          "part": "store/x",
+          "min": {}
+        }
+      ]
+    ],
+    "path": "min"
+  },
+  {
+    "name": "store max",
+    "ops": [
+      [
+        "part",
+        {
+          "part": "store/x",
+          "max": "many"
+        }
+      ]
+    ],
+    "path": "max"
+  },
+  {
+    "name": "store per",
+    "ops": [
+      [
+        "part",
+        {
+          "part": "store/x",
+          "per": "place"
+        }
+      ]
+    ],
+    "path": "per"
+  },
+  {
+    "name": "store show",
+    "ops": [
+      [
+        "part",
+        {
+          "part": "store/x",
+          "show": "yes"
+        }
+      ]
+    ],
+    "path": "show"
+  },
+  {
+    "name": "player says",
+    "ops": [
+      [
+        "part",
+        {
+          "part": "player/x",
+          "says": 5
+        }
+      ]
+    ],
+    "path": "says"
+  },
+  {
+    "name": "player colour",
+    "ops": [
+      [
+        "part",
+        {
+          "part": "player/x",
+          "colour": []
+        }
+      ]
+    ],
+    "path": "colour"
+  },
+  {
+    "name": "dice sides",
+    "ops": [
+      [
+        "part",
+        {
+          "part": "dice/x",
+          "sides": 0
+        }
+      ]
+    ],
+    "path": "sides"
+  },
+  {
+    "name": "advisor top",
+    "ops": [
+      [
+        "part",
+        {
+          "part": "advisor/x",
+          "top": -1
+        }
+      ]
+    ],
+    "path": "top"
+  },
+  {
+    "name": "action cost",
+    "ops": [
+      [
+        "part",
+        {
+          "part": "action/x",
+          "cost": []
+        }
+      ]
+    ],
+    "path": "cost"
+  },
+  {
+    "name": "action when",
+    "ops": [
+      [
+        "part",
+        {
+          "part": "action/x",
+          "when": [
+            [
+              "unknown",
+              1,
+              2
+            ]
+          ]
+        }
+      ]
+    ],
+    "path": "when"
+  },
+  {
+    "name": "action then",
+    "ops": [
+      [
+        "part",
+        {
+          "part": "action/x",
+          "then": [
+            [
+              "stamp",
+              "missing"
+            ]
+          ]
+        }
+      ]
+    ],
+    "path": "then"
+  },
+  {
+    "name": "action on",
+    "ops": [
+      [
+        "part",
+        {
+          "part": "action/x",
+          "on": 3
+        }
+      ]
+    ],
+    "path": "on"
+  },
+  {
+    "name": "turn order",
+    "ops": [
+      [
+        "part",
+        {
+          "part": "turn/x",
+          "order": {}
+        }
+      ]
+    ],
+    "path": "order"
+  },
+  {
+    "name": "turn moves",
+    "ops": [
+      [
+        "part",
+        {
+          "part": "turn/x",
+          "moves": -1
+        }
+      ]
+    ],
+    "path": "moves"
+  },
+  {
+    "name": "beat after",
+    "ops": [
+      [
+        "part",
+        {
+          "part": "beat/x",
+          "after": []
+        }
+      ]
+    ],
+    "path": "after"
+  },
+  {
+    "name": "voice colour",
+    "ops": [
+      [
+        "part",
+        {
+          "part": "voice/x",
+          "colour": {}
+        }
+      ]
+    ],
+    "path": "colour"
+  },
+  {
+    "name": "talk lines",
+    "ops": [
+      [
+        "part",
+        {
+          "part": "talk/x",
+          "lines": {}
+        }
+      ]
+    ],
+    "path": "lines"
+  },
+  {
+    "name": "talk asks",
+    "ops": [
+      [
+        "part",
+        {
+          "part": "talk/x",
+          "asks": [
+            {
+              "id": "7bad"
+            }
+          ]
+        }
+      ]
+    ],
+    "path": "asks"
+  },
+  {
+    "name": "tune bpm",
+    "ops": [
+      [
+        "part",
+        {
+          "part": "tune/x",
+          "bpm": 49
+        }
+      ]
+    ],
+    "path": "bpm"
+  },
+  {
+    "name": "tune voices",
+    "ops": [
+      [
+        "part",
+        {
+          "part": "tune/x",
+          "voices": [
+            {
+              "steps": "9"
+            }
+          ]
+        }
+      ]
+    ],
+    "path": "voices"
+  },
+  {
+    "name": "tune scale",
+    "ops": [
+      [
+        "part",
+        {
+          "part": "tune/x",
+          "scale": []
+        }
+      ]
+    ],
+    "path": "scale"
+  },
+  {
+    "name": "place at",
+    "ops": [
+      [
+        "part",
+        {
+          "part": "place/x",
+          "at": [
+            0,
+            0,
+            99,
+            99
+          ]
+        }
+      ]
+    ],
+    "path": "at"
+  },
+  {
+    "name": "place grid",
+    "ops": [
+      [
+        "part",
+        {
+          "part": "place/x",
+          "grid": {
+            "cols": 0
+          }
+        }
+      ]
+    ],
+    "path": "grid"
+  },
+  {
+    "name": "scene ops",
+    "ops": [
+      [
+        "part",
+        {
+          "part": "scene/x",
+          "ops": [
+            [
+              "part",
+              {
+                "part": "voice/pip"
+              }
+            ]
+          ]
+        }
+      ]
+    ],
+    "path": "ops"
+  },
+  {
+    "name": "cycle",
+    "ops": [
+      [
+        "kit",
+        [
+          {
+            "part": "beat/a",
+            "after": "b"
+          },
+          {
+            "part": "beat/b",
+            "after": "a"
+          }
+        ]
+      ]
+    ],
+    "path": "after"
+  },
+  {
+    "name": "bundle cap",
+    "ops": [
+      [
+        "kit",
+        [
+          {
+            "part": "store/p0"
+          },
+          {
+            "part": "store/p1"
+          },
+          {
+            "part": "store/p2"
+          },
+          {
+            "part": "store/p3"
+          },
+          {
+            "part": "store/p4"
+          },
+          {
+            "part": "store/p5"
+          },
+          {
+            "part": "store/p6"
+          },
+          {
+            "part": "store/p7"
+          },
+          {
+            "part": "store/p8"
+          },
+          {
+            "part": "store/p9"
+          },
+          {
+            "part": "store/p10"
+          },
+          {
+            "part": "store/p11"
+          },
+          {
+            "part": "store/p12"
+          },
+          {
+            "part": "store/p13"
+          },
+          {
+            "part": "store/p14"
+          },
+          {
+            "part": "store/p15"
+          },
+          {
+            "part": "store/p16"
+          },
+          {
+            "part": "store/p17"
+          },
+          {
+            "part": "store/p18"
+          },
+          {
+            "part": "store/p19"
+          },
+          {
+            "part": "store/p20"
+          },
+          {
+            "part": "store/p21"
+          },
+          {
+            "part": "store/p22"
+          },
+          {
+            "part": "store/p23"
+          },
+          {
+            "part": "store/p24"
+          },
+          {
+            "part": "store/p25"
+          },
+          {
+            "part": "store/p26"
+          },
+          {
+            "part": "store/p27"
+          },
+          {
+            "part": "store/p28"
+          },
+          {
+            "part": "store/p29"
+          },
+          {
+            "part": "store/p30"
+          },
+          {
+            "part": "store/p31"
+          },
+          {
+            "part": "store/p32"
+          },
+          {
+            "part": "store/p33"
+          },
+          {
+            "part": "store/p34"
+          },
+          {
+            "part": "store/p35"
+          },
+          {
+            "part": "store/p36"
+          },
+          {
+            "part": "store/p37"
+          },
+          {
+            "part": "store/p38"
+          },
+          {
+            "part": "store/p39"
+          },
+          {
+            "part": "store/p40"
+          },
+          {
+            "part": "store/p41"
+          },
+          {
+            "part": "store/p42"
+          },
+          {
+            "part": "store/p43"
+          },
+          {
+            "part": "store/p44"
+          },
+          {
+            "part": "store/p45"
+          },
+          {
+            "part": "store/p46"
+          },
+          {
+            "part": "store/p47"
+          },
+          {
+            "part": "store/p48"
+          }
+        ]
+      ]
+    ],
+    "path": "parts"
+  },
+  {
+    "name": "unresolved",
+    "ops": [
+      [
+        "kit",
+        "absent"
+      ]
+    ],
+    "path": "kit"
+  },
+  {
+    "name": "rep kit",
+    "ops": [
+      [
+        "rep",
+        2,
+        0,
+        0,
+        0,
+        [
+          [
+            "part",
+            {
+              "part": "store/cash"
+            }
+          ]
+        ]
+      ]
+    ],
+    "path": "rep"
+  }
+]

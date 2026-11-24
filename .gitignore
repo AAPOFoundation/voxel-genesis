@@ -1,0 +1,4 @@
+.agent-work/
+node_modules/
+.mcp.json
+.grok/

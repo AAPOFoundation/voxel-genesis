@@ -1,0 +1,51 @@
+{
+  "copy": "COPY-DRAFT",
+  "bundles": [
+    {
+      "kit": 1,
+      "id": "a",
+      "v": 1,
+      "parts": [
+        {
+          "part": "store/cash",
+          "start": 5
+        }
+      ]
+    },
+    {
+      "kit": 1,
+      "id": "b",
+      "v": 1,
+      "parts": [
+        {
+          "part": "beat/first"
+        },
+        {
+          "part": "tune/stroll"
+        }
+      ]
+    }
+  ],
+  "ops": [
+    [
+      "kit",
+      "a",
+      "play"
+    ],
+    [
+      "kit",
+      "b",
+      "story"
+    ],
+    [
+      "part",
+      "b:tune/stroll"
+    ],
+    [
+      "part",
+      {
+        "part": "voice/pip"
+      }
+    ]
+  ]
+}

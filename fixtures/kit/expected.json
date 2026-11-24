@@ -1,0 +1,41 @@
+{
+  "property": {
+    "hash": "b8a137cf",
+    "rev": 13,
+    "scores": {
+      "rival": 726,
+      "you": 889
+    },
+    "winner": "you",
+    "turn": 12
+  },
+  "quest": {
+    "hash": "f0919c71",
+    "rev": 7,
+    "scores": {
+      "you": 0
+    },
+    "winner": "you"
+  },
+  "town": {
+    "hash": "4cd212e6",
+    "rev": 25
+  },
+  "garden": {
+    "hash": "8fab8aca",
+    "rev": 10,
+    "scores": {
+      "you": 0
+    },
+    "winner": "you",
+    "turn": 7
+  },
+  "courier": {
+    "hash": "2b34d382",
+    "rev": 3,
+    "scores": {
+      "you": 0
+    },
+    "winner": "you"
+  }
+}

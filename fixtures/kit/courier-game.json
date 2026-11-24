@@ -1,0 +1,12 @@
+{
+  "open": {"name":"courier-game","kit":"courier","seed":7},
+  "batches": [
+    [
+      ["do","drive","stop-1"],
+      ["do","drive","stop-2"],
+      ["do","drive","stop-3"],
+      ["do","drive","stop-4"]
+    ],
+    [["do","drive","stop-5"],["do","drive","stop-6"],["do","drive","stop-7"]]
+  ]
+}

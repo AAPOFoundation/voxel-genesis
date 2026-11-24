@@ -1,0 +1,28 @@
+{
+  "name": "voxel-genesis",
+  "version": "0.6.0",
+  "description": "A local MCP server and browser viewer for AI agents to build a voxel world.",
+  "keywords": ["mcp", "model-context-protocol", "voxel", "ai-agents", "world-builder", "deterministic"],
+  "license": "Apache-2.0",
+  "author": "Aapo Pty. Ltd.",
+  "repository": { "type": "git", "url": "git+https://github.com/AAPOFoundation/voxel-genesis.git" },
+  "homepage": "https://github.com/AAPOFoundation/voxel-genesis#readme",
+  "bugs": { "url": "https://github.com/AAPOFoundation/voxel-genesis/issues" },
+  "bin": { "voxel-genesis": "bin/voxel-genesis.mjs" },
+  "files": ["bin/", "src/", "viewer/", "vendor/", "kit/", "CHANGELOG.md",
+    "fixtures/small-town.json", "fixtures/tiny-garden.json", "fixtures/hill-village.json",
+    "fixtures/town-game.json", "scripts/game-check.mjs", "scripts/kit-bot.mjs",
+    "scripts/kit-lint.mjs", "docs/BUILDING-A-WORLD.md", "docs/MAKE-A-GAME.md", "docs/KIT-PARTS.md"],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "check": "node scripts/check.mjs",
+    "test": "node scripts/check.mjs",
+    "serve": "node bin/voxel-genesis.mjs serve",
+    "mcp": "node bin/voxel-genesis.mjs mcp",
+    "connect": "node bin/voxel-genesis.mjs connect",
+    "review": "node scripts/weekly-review.mjs",
+    "prepublishOnly": "node scripts/check.mjs"
+  }
+}

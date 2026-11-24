@@ -1,0 +1,26 @@
+{
+  "kit": 1,
+  "id": "tide",
+  "v": 1,
+  "says": "COPY-DRAFT: Quiet shore.",
+  "size": [
+    32,
+    32,
+    24
+  ],
+  "parts": [
+    {
+      "part": "tune/shore"
+    },
+    {
+      "part": "voice/pip"
+    },
+    {
+      "part": "talk/hello",
+      "voice": "pip",
+      "lines": [
+        "COPY-DRAFT: Hello."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,207 @@
+[
+  [
+    {
+      "part": "store/cash"
+    },
+    {
+      "id": "CASH",
+      "kind": "store"
+    },
+    {
+      "kit": 1,
+      "parts": [
+        {
+          "part": "store/cash",
+          "start": 0
+        }
+      ]
+    }
+  ],
+  [
+    {
+      "part": "store/cash",
+      "start": 5
+    },
+    {
+      "part": "STORE/CASH",
+      "start": "5"
+    },
+    {
+      "part": "store/cash",
+      "start": 5
+    }
+  ],
+  [
+    {
+      "part": "store/cash",
+      "start": 1
+    },
+    {
+      "part": "store/cash",
+      "start": true
+    },
+    {
+      "kind": "store",
+      "id": "cash",
+      "start": 1
+    }
+  ],
+  [
+    {
+      "part": "voice/pip",
+      "says": "COPY-DRAFT"
+    },
+    {
+      "part": "voice/pip",
+      "name": "COPY-DRAFT"
+    },
+    {
+      "part": "voice/pip",
+      "label": "COPY-DRAFT"
+    },
+    {
+      "part": "voice/pip",
+      "title": "COPY-DRAFT"
+    }
+  ],
+  [
+    {
+      "part": "beat/first-step"
+    },
+    {
+      "kind": "beat",
+      "id": "First Step"
+    },
+    {
+      "part": "beat/first_step"
+    }
+  ],
+  [
+    {
+      "part": "action/buy",
+      "when": [
+        [
+          ">=",
+          "cash",
+          5
+        ]
+      ]
+    },
+    {
+      "part": "action/buy",
+      "when": [
+        ">=",
+        "cash",
+        5
+      ]
+    },
+    {
+      "part": "action/buy",
+      "requires": [
+        ">=",
+        "cash",
+        5
+      ]
+    }
+  ],
+  [
+    {
+      "part": "action/buy",
+      "then": [
+        [
+          "add",
+          "cash",
+          5
+        ]
+      ]
+    },
+    {
+      "part": "action/buy",
+      "then": [
+        "add",
+        "cash",
+        5
+      ]
+    },
+    {
+      "part": "action/buy",
+      "effect": [
+        "add",
+        "cash",
+        5
+      ]
+    }
+  ],
+  [
+    {
+      "part": "action/buy",
+      "cost": {
+        "cash": 5
+      }
+    },
+    {
+      "part": "action/buy",
+      "price": {
+        "cash": 5
+      }
+    },
+    {
+      "kind": "action",
+      "id": "BUY",
+      "cost": {
+        "cash": "5"
+      }
+    }
+  ],
+  [
+    {
+      "part": "tune/calm",
+      "bpm": 90
+    },
+    {
+      "part": "tune/calm",
+      "tempo": 90
+    },
+    [
+      {
+        "part": "tune/calm",
+        "bpm": "90"
+      }
+    ]
+  ],
+  [
+    {
+      "part": "talk/hello",
+      "voice": "pip"
+    },
+    {
+      "part": "talk/hello",
+      "speaker": "PIP"
+    },
+    {
+      "part": "talk/hello",
+      "character": "pip"
+    }
+  ],
+  [
+    {
+      "part": "beat/first",
+      "goal": "COPY-DRAFT"
+    },
+    {
+      "part": "beat/first",
+      "objective": "COPY-DRAFT"
+    },
+    {
+      "kit": 1,
+      "id": "sample",
+      "parts": [
+        {
+          "kind": "beat",
+          "id": "first",
+          "goal": "COPY-DRAFT"
+        }
+      ]
+    }
+  ]
+]
