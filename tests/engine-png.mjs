@@ -136,13 +136,13 @@ for (const name of ['small-town', 'tiny-garden', 'hill-village']) {
   }
 }
 {
-  const s = session(), reply = open(s, { name: 'order-bad', size: [48, 32, 48] });
+  const s = session(), reply = open(s, { name: 'order-bad', size: [160, 64, 160] });
   const text = String(reply?.message ?? '');
   check('7 size-order', refused(reply) && !s.world && text.includes('width, depth, height') &&
-    text.includes('[48, 48, 32]'), 'refusal needs width, depth, height and [48, 48, 32]: ' +
+    text.includes('[160, 160, 64]'), 'refusal needs width, depth, height and [160, 160, 64]: ' +
     text);
-  const ok = session(), good = open(ok, { name: 'order-ok', size: [48, 48, 32] });
-  check('7 size-order', !refused(good) && Boolean(ok.world), '[48, 48, 32] must open');
+  const ok = session(), good = open(ok, { name: 'order-ok', size: [160, 160, 64] });
+  check('7 size-order', !refused(good) && Boolean(ok.world), '[160, 160, 64] must open');
   const lower = join(images, 'case.png'), upper = join(images, 'case.PNG');
   writeFileSync(lower, grid); writeFileSync(upper, grid);
   const a = session(), b = session(), ra = open(a, { name: 'case-a', from: lower });

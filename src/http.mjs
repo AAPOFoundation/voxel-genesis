@@ -35,7 +35,8 @@ const routes = new Map(
     ['/games/town-advice.mjs', 'src/games/town-advice.mjs'],
     ['/engine.js', 'vendor/voxel-engine.js'],
     ...['index', 'palette', 'palette-v1', 'prefabs', 'prefabs-v1', 'prefabs-v2',
-      'bridge', 'ops', 'codec', 'look', 'rules', 'feed', 'movers'].map(
+      'bridge', 'ops', 'edit-ops', 'op-helpers', 'codec', 'look', 'rules', 'feed', 'movers',
+      'grow'].map(
       n => ['/core/' + n + '.mjs', 'src/core/' + n + '.mjs']
     )
   ]

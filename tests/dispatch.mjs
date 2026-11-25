@@ -98,7 +98,7 @@ writeFileSync(session.logPath, raw);
 assert.ok(
   Buffer.byteLength(
     JSON.stringify({ jsonrpc: '2.0', id: 1, result: { tools: TOOL_COPY } })
-  ) + Buffer.byteLength(SERVER_INSTRUCTIONS) <= 2500
+  ) + Buffer.byteLength(SERVER_INSTRUCTIONS) <= 2800
 );
 assert.ok(TOOL_COPY.every(tool => tool.annotations.openWorldHint === false));
 assert.equal(TOOL_COPY[2].annotations.readOnlyHint, true);

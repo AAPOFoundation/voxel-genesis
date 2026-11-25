@@ -45,7 +45,7 @@ Generated docs share the kind table. Weekly review groups only recognised usage 
 
 ## World and physics
 
-Size is [width, depth, height], with width and depth from 8 to 48 and height from 8 to 32.
+Size is [width, depth, height], with width and depth from 8 to 160 and height from 8 to 64.
 x points right, z points down the map and y points up.
 Coordinates are integers and box corners are inclusive in either order.
 Seeds range from 0 to 2147483647. Names use lowercase letters, digits and hyphens, up to 32 characters.
@@ -68,7 +68,9 @@ Rotating a prefab changes its footprint around the submitted low corner.
 Rock footings fill terrain gaps below its highest ground column.
 
 The README lists all 13 operations with examples.
-Batches allow 1 to 200 submitted operations, 2,000 expanded operations and 20,000 attempted cell writes.
+Batches allow 1 to 200 submitted operations and 2,000 expanded operations.
+The attempted cell write limit is 20,000 up to the old 48 by 48 by 32 volume.
+Above that volume it scales proportionally, rounded up, to 160,000 at 96 by 96 by 64.
 Repetition cannot nest. A vertical shift requires a 3D operation.
 Cars follow rectangular routes and pets use plantable columns. A world holds at most 12 life definitions.
 These definitions enter the hash; animated positions do not.

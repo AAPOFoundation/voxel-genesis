@@ -78,7 +78,12 @@ try {
     }
     s.call('world_open', f.open, 'run');
     for (const ops of f.batches) {
-      s.call('world_build', { ops }, 'run');
+      if (ops?.grow) {
+        s.call('world_open', { name: s.world.name, size: ops.grow, grow: true,
+          ...(ops.shift !== undefined ? { shift: ops.shift } : {}) }, 'run');
+      } else {
+        s.call('world_build', { ops }, 'run');
+      }
     }
     const { summary } = await import('../src/core/codec.mjs');
     print({ ok: true, rev: s.world.rev,...summary(s.world) });

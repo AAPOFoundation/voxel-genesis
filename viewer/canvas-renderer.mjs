@@ -102,7 +102,8 @@ export class CachedCanvasRenderer {
       focus: this.focus
     };
     const key = JSON.stringify(
-      [world.rev, world.opsApplied, this.canvas.width, this.canvas.height, camera]
+      [world.w, world.d, world.h, world.rev, world.opsApplied,
+        this.canvas.width, this.canvas.height, camera]
     );
     // During settling, canonical cells can change between frames within one operation.
     if (

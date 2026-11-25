@@ -1,6 +1,7 @@
 // Encode cells and derive canonical hashes and world summaries.
 import { failure } from '../errors.mjs';
 import { SET_ID, SETS } from './palette.mjs';
+export const MAX_SIZE = [160, 160, 64];
 /** Run-length encode a canonical cell buffer. */
 export function encode(cells) {
   const a = [];
@@ -29,7 +30,7 @@ export function decode(a, size, set = SET_ID) {
     }
     n += a[i + 1];
   }
-  if (n > 48 * 48 * 32 || size !== undefined && n !== size) {
+  if (n > MAX_SIZE.reduce((a, b) => a * b, 1) || size !== undefined && n !== size) {
     throw failure('save');
   }
   const cells = new Uint8Array(n);

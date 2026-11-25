@@ -67,7 +67,8 @@ export function exportWorld(args, { home = dataHome(), cwd = process.cwd() } = {
   const { world, builds } = createCore(engine).replay(h, records);
   const parts = Object.values(world.kit?.parts ?? {}).filter(part =>
     !out.section || KINDS[part.part.split('/')[0]]?.section === out.section);
-  const bundle = { kit: 1, id: out.name, size: h.size, rules: h.rules, parts };
+  const bundle = { kit: 1, id: out.name, size: [world.w, world.d, world.h],
+    rules: h.rules, parts };
   if (parts.length > 48 || Buffer.byteLength(JSON.stringify(bundle)) > 8192) {
     throw failure('exportCap');
   }

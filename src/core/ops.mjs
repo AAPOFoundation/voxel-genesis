@@ -1,44 +1,22 @@
 // Validate and apply primitive operations, including bounded repetition.
-import { failure, opError } from '../errors.mjs';
+import { opError } from '../errors.mjs';
 import { PREFABS, prefabsOf, stampCells } from './prefabs.mjs';
 import { mix } from './codec.mjs';
 import { kitError } from '../kit-copy.mjs';
 import { note } from './feed.mjs';
 import { MOVER_OPS, SHIFTS } from './movers.mjs';
-const fail = (key, value, allowed, field) => {
-  throw failure(key, value, allowed, field); };
-const int = (...ns) => {
-  if (!ns.every(Number.isSafeInteger)) {
-    fail('integer', ns);
-  }
-};
+import { EDIT_OPS } from './edit-ops.mjs';
+import { fail, int, cell, block, form, volume, put, builtin, xyz } from './op-helpers.mjs';
 const range = (n, lo, hi, key) => {
   int(n);
   if (n < lo || n > hi) {
     fail(key, n);
   }
 };
-const cell = (world, x, y, z) => {
-  int(x, y, z);
-  if (!world.inside(x, y, z)) {
-    fail('bounds', [x, y, z]);
-  }
-};
 const column = (world, x, z) => cell(world, x, 0, z);
-const block = (world, b) => {
-  if (!Object.hasOwn(world.byName, b)) {
-    fail('block', b, Object.keys(world.byName));
-  }
-  return world.types[world.byName[b]];
-};
 const ground = (world, b) => {
   if (!block(world, b).fixed) {
     fail('ground', b);
-  }
-};
-const form = (o, n) => {
-  if (o.length !== n) {
-    fail('form', o);
   }
 };
 const rect = (world, o, start) => {
@@ -51,24 +29,6 @@ const cols = (a, b, c, d, fn) => {
       fn(x, z);
     }
   }
-};
-const volume = (a, b, c, d, e, f, fn) => {
-  for (let x = Math.min(a, d); x <= Math.max(a, d); x++) {
-    for (let y = Math.min(b, e); y <= Math.max(b, e); y++) {
-      for (let z = Math.min(c, f); z <= Math.max(c, f); z++) {
-        fn(x, y, z);
-      }
-    }
-  }
-};
-const put = (world, x, y, z, id) => {
-  cell(world, x, y, z);
-  world.set(x, y, z, id);
-};
-const builtin = (validate, apply) => ({ validate, expand: op => [op], apply });
-const xyz = (world, o, start) => {
-  cell(world,...o.slice(start, start + 3));
-  cell(world,...o.slice(start + 3, start + 6));
 };
 const stamp = (world, name, x, z, turns) => {
   for (const [xx, y, zz, id] of stampCells(world, name, x, z, turns)) {
@@ -264,6 +224,7 @@ export const OPS = { note, ...MOVER_OPS,
     },
     (world, o) => volume(...o.slice(1), (x, y, z) => put(world, x, y, z, 0))
   ),
+  ...EDIT_OPS,
   pop: builtin(
     (world, o) => {
       form(o, 5);
@@ -298,8 +259,10 @@ export const OPS = { note, ...MOVER_OPS,
 function shift(o, dx, dy, dz) {
   if (Object.hasOwn(SHIFTS, o[0])) return SHIFTS[o[0]](o, dx, dy, dz);
   const p = [...o], name = p[0];
-  if (['box', 'line', 'clear'].includes(name)) {
-    const k = name === 'clear' ? 1: 2;
+  if (name === 'swap' && p.length === 3) return p;
+  if (['box', 'line', 'clear', 'swap', 'mirror'].includes(name)) {
+    const k = name === 'clear' ? 1 : ['swap', 'mirror'].includes(name) ? 3 : 2;
+    if (name === 'mirror') p[2] += [dx, dy, dz][['x', 'y', 'z'].indexOf(p[1])];
     for (const j of [k, k + 3]) {
       p[j] += dx;
       p[j + 1] += dy;

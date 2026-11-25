@@ -25,6 +25,7 @@ import { inspectParts } from './kit/parts.mjs';
 import { storyReport } from './kit/story.mjs';
 import { readLog, snapshot, locked } from './save-log.mjs';
 import { readInputs, acknowledgeInputs, acknowledgedMark } from './input.mjs';
+import { checkGrowArgs, reopen, sameSize } from './grow.mjs';
 export const TOOLS = TOOL_COPY;
 const E = createRequire(import.meta.url)('../vendor/voxel-engine.js');
 const vendorRecord = JSON.parse(
@@ -128,11 +129,11 @@ export function createToolSession({ home = dataHome(), viewer = null, cwd, kitFo
       load(logPath, true);
     }
   }
-  function append(line, next, nextBuilds) {
+  function append(line, next, nextBuilds, notify = true) {
     const old = lines.length;
     appendFileSync(logPath, JSON.stringify(line) + '\n');
     lines.push(line);
-    if (line.ops) kept = [...kept, world].slice(- MAX_UNDO);
+    if (line.ops || line.grow) kept = [...kept, world].slice(- MAX_UNDO);
     world = next;
     world.rev = lines.length;
     builds = nextBuilds;
@@ -145,9 +146,10 @@ export function createToolSession({ home = dataHome(), viewer = null, cwd, kitFo
     } else {
       signature = stat(logPath);
     }
-    publish(old);
+    if (notify) publish(old);
   }
   function open(args) {
+    checkGrowArgs(args);
     const source = readStarter(args);
     const bundle = args.kit ? files.bundle(args.kit, 'kit') : null;
     if (args.game && args.size &&
@@ -180,21 +182,11 @@ export function createToolSession({ home = dataHome(), viewer = null, cwd, kitFo
           const data = readLog(path);
           h = data.h;
           records = data.records;
-          if (args.game && h.rules !== 'town@1') {
-            throw failure('game');
-          }
-          if (h.rules === 'town@1' && args.size &&
-            JSON.stringify(args.size) !== JSON.stringify(PACKS[h.rules].size)) {
-            throw failure('townSize');
-          }
-          if (
-            args.size && JSON.stringify(args.size) !== JSON.stringify(h.size) ||
-            args.seed !== undefined && args.seed !== h.seed
-          ) {
-            throw failure('match');
-          }
-          q = core.replay(h, records);
+          q = reopen(core, args, h, records);
+          if (args.shift?.some(n => n !== 0) &&
+            readInputs({ home, world: q.world }).some(r => r.click)) throw failure('shiftInputs');
         } else {
+          if (args.grow) throw failure('missing');
           const w = core.newWorld({
             name, size: source?.open.size ?? args.size ?? bundle?.size,
             seed: source?.open.seed ?? args.seed,
@@ -223,6 +215,7 @@ export function createToolSession({ home = dataHome(), viewer = null, cwd, kitFo
           writeFileSync(path, [h, ...records].map(row => JSON.stringify(row)).join('\n') + '\n');
         }
         const changed = logPath !== path || args.fresh;
+        const old = lines.length;
         header = h;
         lines = records;
         world = q.world;
@@ -231,19 +224,25 @@ export function createToolSession({ home = dataHome(), viewer = null, cwd, kitFo
         logPath = path;
         signature = stat(path);
         warn = h.engine === pin ? []: [C.engine];
+        if (args.grow) {
+          const record = { grow: args.size,
+            ...(args.shift !== undefined ? { shift: args.shift } : {}) };
+          append(record, q.grown, [...builds, record], false);
+        }
         writeFileSync(current, name + '\n');
         pinned = true;
         if (changed) {
           resetPlayback();
-        }
+        } else if (args.grow) publish(old);
         const { count, hash: worldHash } = summary(world);
+        const size = [world.w, world.d, world.h];
         const others = readdirSync(folder).filter(
           n => n.endsWith('.jsonl') && !n.endsWith('.bak.jsonl') &&
           n !== name + '.jsonl'
         ).map(n => n.slice(0, - 6)).sort().slice(0, 10);
         return {
           ...(args.name === name ? {} : { world: name }),
-          ...(sameSize(args.size, h.size) ? {} : { size: h.size }),
+          ...(!args.grow && sameSize(args.size, size) ? {} : { size }),
           ...(args.seed !== undefined && args.seed === h.seed ? {} : { seed: h.seed }),
           rev: world.rev,
           count,
@@ -265,10 +264,6 @@ export function createToolSession({ home = dataHome(), viewer = null, cwd, kitFo
         };
       }
     );
-  }
-  function sameSize(a, b) {
-    return Array.isArray(a) && Array.isArray(b) && a.length === b.length &&
-      a.every((n, i) => n === b[i]);
   }
   function cursorOf() {
     const name = world.name;

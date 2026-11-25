@@ -8,8 +8,10 @@ text and the server instructions are the contract; this page only shows how they
 ## The four tools
 - `world_open` opens or starts a world and replies with its size, block names, prefab names and a
   viewer link. Arguments: `name`, `size` as [width, depth, height] (each 8 or more, at most
-  [48, 48, 32]; leave it out for the default 32 by 32 by 24), `seed`, `fresh` to start over, `from`
+  [160, 160, 64]; leave it out for the default 32 by 32 by 24), `seed`, `fresh` to start over, `from`
   to load a built world, `game` town or `kit` NAME for games.
+  `grow: true` with a larger `size` enlarges a plain world and keeps its blocks; `shift: [x, z]` also
+  moves them east by x and south by z, so the world grows west and north.
 - `world_build` applies up to 200 ops in order and replies on one line: `rev`, `hash`, `count`, and
   `fell`, `lost` and `sank` (blocks that dropped, left the world or went under water).
 - `world_look` reads the world as a small text map: top, height, side, info or town.

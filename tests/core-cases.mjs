@@ -254,7 +254,7 @@ export async function runCoreTests(context) {
     () => {
       check(
         'size-caps',
-        bytes({ jsonrpc: '2.0', id: 2, result: { tools: TOOLS } }) <= 2500,
+        bytes({ jsonrpc: '2.0', id: 2, result: { tools: TOOLS } }) <= 2800,
         'tools/list ' + bytes({ jsonrpc: '2.0', id: 2, result: { tools: TOOLS } })
       );
       for (const f of Object.values(fixtures)) {

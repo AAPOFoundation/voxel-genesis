@@ -124,6 +124,7 @@ export class GLRenderer {
     const w = this.world;
     this.cachedWorld = w;
     this.cachedRev = w.rev;
+    this.cachedSize = [w.w, w.d, w.h];
     const mesh = buildMesh(w);
     this.staticCount = mesh.length / STRIDE;
     gl.bindBuffer(gl.ARRAY_BUFFER, this.staticBuffer);
@@ -131,8 +132,10 @@ export class GLRenderer {
     this.changed.clear();
     this.patchCount = 0;
     this.patchDirty = false;
-    this.maskHeight = Math.ceil(w.cells.length / TILE);
-    this.maskBytes = new Uint8Array(TILE * this.maskHeight);
+    // Widen large masks to keep their height within a 4096-row texture limit.
+    this.maskWidth = TILE * Math.ceil(w.cells.length / (TILE * 4096));
+    this.maskHeight = Math.ceil(w.cells.length / this.maskWidth);
+    this.maskBytes = new Uint8Array(this.maskWidth * this.maskHeight);
     gl.bindTexture(gl.TEXTURE_2D, this.mask);
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
@@ -142,7 +145,7 @@ export class GLRenderer {
       gl.TEXTURE_2D,
       0,
       gl.ALPHA,
-      TILE,
+      this.maskWidth,
       this.maskHeight,
       0,
       gl.ALPHA,
@@ -208,7 +211,8 @@ export class GLRenderer {
     if (gl.isContextLost()) {
       return false;
     }
-    if (this.cachedWorld !== w || this.cachedRev !== w.rev) {
+    if (this.cachedWorld !== w || this.cachedRev !== w.rev ||
+      this.cachedSize.some((n, i) => n !== [w.w, w.d, w.h][i])) {
       this.rebuild();
     }
     gl.useProgram(this.program);
@@ -224,7 +228,7 @@ export class GLRenderer {
         0,
         0,
         0,
-        TILE,
+        this.maskWidth,
         this.maskHeight,
         gl.ALPHA,
         gl.UNSIGNED_BYTE,
@@ -252,7 +256,7 @@ export class GLRenderer {
       2 * this.canvas.width / (this.span * this.canvas.height)
     );
     gl.uniform1f(u.depthRange, (w.w + w.d + w.h) * 4);
-    gl.uniform2f(u.maskSize, TILE, this.maskHeight);
+    gl.uniform2f(u.maskSize, this.maskWidth, this.maskHeight);
     gl.uniform1i(u.mask, 0);
     this.draw(this.staticBuffer, this.staticCount, 1);
     this.draw(this.patchBuffer, this.patchCount, 0);

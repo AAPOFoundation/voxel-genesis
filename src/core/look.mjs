@@ -6,6 +6,7 @@ import { blocksOf } from './palette.mjs';
 import { hash } from './codec.mjs';
 import { packOf } from './rules.mjs';
 import { kitView } from '../kit/view.mjs';
+const heights = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ+/';
 /** Render a bounded top, height, side or information view. */
 export function look(
   world,
@@ -68,7 +69,7 @@ export function look(
       let s = '';
       for (let x = x1; x <= x2; x++) {
         const y = world.top(x, zz);
-        s += view === 'height' ? (y < 0 ? ' ': y.toString(32)):
+        s += view === 'height' ? (y < 0 ? ' ': heights[y]):
         glyph(x, y, zz);
       }
       lines.push(s);

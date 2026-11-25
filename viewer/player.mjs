@@ -127,6 +127,13 @@ export function createPlayer(E, { reduced = false, onChange = () => {} } = {}) {
   function startEvent(event) {
     pending = event;
     try {
+      if (event.line.grow) {
+        const moverAxis = world.moverAxis;
+        world = core.grow(world, event.line.grow, event.line.shift);
+        if (moverAxis) world.moverAxis = moverAxis;
+        finish();
+        return;
+      }
       if (reduced) {
         world = core.applyBatch(world, event.line.ops).world;
         finish();

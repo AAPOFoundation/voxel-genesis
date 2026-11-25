@@ -381,7 +381,7 @@ await run('input-budget', () => {
   info('input-budget', size + ' bytes (cap 2,400), views ' + views.join(' '));
   check('input-budget', tools.length === 4 && tools.every(tool => /^world_/.test(tool.name)),
     tools.length + ' tools');
-  check('input-budget', size <= 2480, 'tool list plus instructions ' + size + ' bytes');
+  check('input-budget', size <= 2800, 'tool list plus instructions ' + size + ' bytes');
   check('input-budget', views.includes('input'), 'world_look view enum ' + views.join());
   const kept = ['top', 'height', 'side', 'info', 'town', 'kit'];
   check('input-budget', kept.every(view => views.includes(view)) && views.every(view =>

@@ -1,5 +1,21 @@
 # Changelog
 
+## Unreleased
+
+## 0.7.0
+
+[//]: # (COPY-DRAFT)
+
+- Grow a plain world in place with `world_open {name, size, grow: true}`. Add `shift: [x, z]` to grow
+  west and north. Grows replay, undo and export like builds.
+- Raise world limits to [160, 160, 64], with width and depth up to 160 and height still 64.
+- Raise world limits to [96, 96, 64], keeping the default [32, 32, 24] and existing world hashes.
+- Encode all 64 height levels with one character per cell in height views.
+- Add `swap` to replace a material in a box or across the world.
+- Add `mirror` to copy non-air cells across an integer or half-cell plane on x, y or z.
+- Both ops settle, report falls, replay and undo with their build batch.
+- Scale the write budget above the old maximum volume, reaching 160,000 at 96 by 96 by 64.
+
 ## 0.6.0
 
 [//]: # (COPY-DRAFT)

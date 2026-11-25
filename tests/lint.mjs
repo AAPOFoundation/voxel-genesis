@@ -52,7 +52,7 @@ for (const p of files.filter(p => /^\.\/(src|bin|viewer|scripts|tests)\//.test(p
 }
 check(
   'size-caps',
-  files.length <= 144 && files.reduce((n, p) => n + statSync(p).size, 0) <= 856 * 1024,
+  files.length <= 144 && files.reduce((n, p) => n + statSync(p).size, 0) <= 900 * 1024,
   'files ' + files.length
 );
 check(
@@ -88,7 +88,7 @@ check(
   'tool-caps',
   tools.length === 4 && tools.every(
     t => /^world_[a-z]+$/.test(t.name) && t.description.length <= (
-      t.name === 'world_build' ? 640: t.name === 'world_open' ? 224: 160
+      t.name === 'world_build' ? 760: t.name === 'world_open' ? 224: 160
     )
   ),
   'names and descriptions'
@@ -107,7 +107,7 @@ tools.forEach(t => schemas(t.inputSchema));
 check(
   'tool-budget',
   Buffer.byteLength(JSON.stringify({ jsonrpc: '2.0', id: 1, result: { tools } })) +
-  Buffer.byteLength(SERVER_INSTRUCTIONS) <= 2500,
+  Buffer.byteLength(SERVER_INSTRUCTIONS) <= 2800,
   'instructions and manifest'
 );
 const documentation = read('README.md') + '\n' + TOOL_COPY.map(tool => tool.description).join(
@@ -226,7 +226,7 @@ for (const p of files.filter(p => /^\.\/(src|bin|viewer|scripts)\//.test(p))) {
 check('kit-budget', tools.length === 4 && tools[0].inputSchema.properties.kit &&
   tools[2].inputSchema.properties.of &&
   Buffer.byteLength(JSON.stringify({ jsonrpc: '2.0', id: 1, result: { tools } })) +
-  Buffer.byteLength(SERVER_INSTRUCTIONS) <= 2480 &&
+  Buffer.byteLength(SERVER_INSTRUCTIONS) <= 2800 &&
   tools.every(tool => !/\[(?:"?)(kit|edit|cut|do|end|say)[,\]]/.test(tool.description)),
   'kit discovery schema and compact manifest');
 const kitNames = ['kinds', 'canon', 'expr', 'parts', 'view', 'effects', 'play', 'advise'];

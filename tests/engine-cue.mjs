@@ -207,10 +207,10 @@ await run('cue-unhashed', async () => {
   check('cue-unhashed', hash(s.world) === 'ab0cf615' && s.world.rev === 1, 'bound world ' +
     hash(s.world) + ' rev ' + s.world.rev + ', pinned ab0cf615 rev 1');
   const tools = await served(async base => (await fetch(base + '/tools')).text());
-  check('cue-unhashed', sha(tools).startsWith('969da21953de66b5db2692bfe61500f6d8'),
+  check('cue-unhashed', sha(tools).startsWith('90f6011aeeb1329f23c19ec93f09a7a3bd'),
     'GET /tools body moved (' + tools.length + ' bytes, pinned 2328)');
   const ops = readFileSync('src/core/ops.mjs', 'utf8').replaceAll('\r\n', '\n');
-  check('cue-unhashed', sha(ops).startsWith('a01d801f179c6dc5810e4ab84327c282f3'),
+  check('cue-unhashed', sha(ops).startsWith('f385707744dffbd3bc498eef6d92d5c6b9'),
     'src/core/ops.mjs changed');
   for (const make of [glOf, canvasOf]) {
     const { r } = make(w, false);

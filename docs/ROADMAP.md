@@ -33,6 +33,14 @@ sub-goal. Scripts over AI compute: the framework stays deterministic.
 6. Photos lane (lane B of the image pathway, parked): the agent fills a closed sheet a script expands.
 7. Faster one-off opens: hill-village 110 ms, a 12-megapixel PNG 424 ms.
 8. Neighbour counts and a real-time clock stay parked (meaning and checkpoints remain undecided).
+9. Real buildings (field trial, 24 Nov: Fallingwater, 4 builds, about 130 ops, nothing fell). The agent
+   learned from source, not the tools, that fixed blocks never fall and water floats; without that its
+   cantilevers fell. Mark fixed blocks and block side effects (lamps on `path`) in the world_open
+   blocks line, since tool text has 5 bytes left.
+10. A picture look: text views confirm layout, not likeness. Judging the building needed a browser
+   screenshot. A small PNG from the renderer would let vision agents check their own work.
+11. Architecture parts: slab with edge and parapet, glass band with mullions, rounded corner. Every one
+   was hand coordinates in the trial.
 
 ## Known verification gaps
 - Acceptance in the live connector and `bash check.sh` on a Mac remain unchecked.

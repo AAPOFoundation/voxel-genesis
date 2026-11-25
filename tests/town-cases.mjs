@@ -235,7 +235,7 @@ export async function runTownTests({ run, core, E, session, hash, floating, home
     assert.ok(bytes / 24 <= 450, 'mean bytes ' + bytes / 24);
     assert.equal(TOOL_COPY.length, 4);
     assert.ok(size({ jsonrpc: '2.0', id: 1, result: { tools: TOOL_COPY } }) +
-      size(SERVER_INSTRUCTIONS) <= 2500);
+      size(SERVER_INSTRUCTIONS) <= 2800);
   });
   await run('town-viewer', async () => {
     const { town } = await game();

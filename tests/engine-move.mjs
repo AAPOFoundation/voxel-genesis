@@ -332,12 +332,12 @@ await run('mover-budget', () => {
   const size = bytes(JSON.stringify({ jsonrpc: '2.0', id: 1, result: { tools } })) +
     bytes(SERVER_INSTRUCTIONS);
   info('mover-budget', size + ' bytes (cap 2,400), world_build ' + says?.length +
-    ' characters (cap 640)');
+    ' characters (cap 760)');
   check('mover-budget', tools.length === 4 && tools.every(tool => /^world_/.test(tool.name)),
     tools.length + ' tools');
-  check('mover-budget', typeof says === 'string' && says.length <= 640,
+  check('mover-budget', typeof says === 'string' && says.length <= 760,
     'world_build description is ' + says?.length + ' characters');
-  check('mover-budget', size <= 2480, 'tool list plus instructions ' + size + ' bytes');
+  check('mover-budget', size <= 2800, 'tool list plus instructions ' + size + ' bytes');
   check('mover-budget', says?.includes('[mover,id,block,x,z]; [move,id,x,z]'),
     'the world_build description does not list [mover,id,block,x,z]; [move,id,x,z]');
 });

@@ -4,10 +4,12 @@ import { definePalette, SET_ID } from './palette.mjs';
 import { OPS, expand } from './ops.mjs';
 import { MOVER_OPS } from './movers.mjs';
 import { PACKS, packOf } from './rules.mjs';
-import { summary, mix } from './codec.mjs';
+import { summary, mix, MAX_SIZE } from './codec.mjs';
 import { openBridgeEnds } from './bridge.mjs';
 import { kitOps, kitStep } from '../kit/parts.mjs';
 import { INPUT_OPS } from '../kit/inputs.mjs';
+import { writesError } from '../copy.mjs';
+import { growWorld } from './grow.mjs';
 /** Create a pure core bound to one engine implementation. */
 export function createCore(engine) {
   const work = { replays: 0, applies: 0, ticks: 0, kit: 0 };
@@ -27,7 +29,7 @@ export function createCore(engine) {
     }
     if (
       !Array.isArray(size) || size.length !== 3 || size.some(
-        (n, i) => !Number.isInteger(n) || n < 8 || n > (i === 2 ? 32: 48)
+        (n, i) => !Number.isInteger(n) || n < 8 || n > MAX_SIZE[i]
       )
     ) {
       throw failure('size');
@@ -124,6 +126,7 @@ export function createCore(engine) {
     const flat = expand(ops, registry(world));
     const candidate = clone(world);
     const stats = { placed: 0, removed: 0, fell: 0, lost: 0, sank: 0 };
+    const writeLimit = Math.max(20000, Math.ceil(20000 * world.cells.length / (48 * 48 * 32)));
     let writes = 0;
     let collapsing = false;
     let source = 'ops[0]';
@@ -144,8 +147,8 @@ export function createCore(engine) {
     const originalCollapse = candidate.collapse;
     const originalMove = candidate.move;
     candidate.set = function (x, y, z, id) {
-      if (++writes > 20000) {
-        throw failure('writes');
+      if (++writes > writeLimit) {
+        throw Object.assign(failure('writes'), { message: writesError(writeLimit) });
       }
       const old = this.get(x, y, z);
       if (old !== id) {
@@ -248,8 +251,9 @@ export function createCore(engine) {
     work.replays++;
     let builds = [];
     for (const [index, line] of lines.entries()) {
-      if (line.ops) {
-        builds.push({ ops: line.ops, rev: index + 1 });
+      if (line.shift !== undefined && !line.grow) throw failure('save');
+      if (line.ops || line.grow) {
+        builds.push({ ops: line.ops, grow: line.grow, shift: line.shift, rev: index + 1 });
       } else if (Number.isInteger(line.undo) && line.undo > 0 && line.undo <= builds.length) {
         builds.splice(- line.undo);
       } else {
@@ -259,16 +263,18 @@ export function createCore(engine) {
     let world = newWorld({
       name: header.world, size: header.size, seed: header.seed, rules: header.rules, set: header.set
     });
-    for (const { ops, rev } of builds) {
+    for (const { ops, grow, shift, rev } of builds) {
       world.rev = rev - 1;
-      world = applyBatch(world, ops).world;
+      world = grow ? growWorld(world, grow, clone, shift) : applyBatch(world, ops).world;
     }
     world.rev = lines.length;
-    return { world, builds: builds.map(build => build.ops) };
+    return { world, builds: builds.map(build => build.ops ?? { grow: build.grow,
+      ...(build.shift !== undefined ? { shift: build.shift } : {}) }) };
   }
   return {
     work,
     newWorld,
+    grow: (world, size, shift) => growWorld(world, size, clone, shift),
     applyBatch,
     settle,
     finishOp,

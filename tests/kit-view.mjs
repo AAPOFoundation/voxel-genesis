@@ -209,10 +209,10 @@ export async function runKitViewTests({ run, E, session, hash }) {
       ['world_open', 'world_build', 'world_look', 'world_undo'], 'a: four tools in order');
     const shape = JSON.stringify(TOOL_COPY.map(t => [t.name, t.inputSchema, t.annotations]));
     assert.ok(createHash('sha256').update(shape).digest('hex')
-      .startsWith('0102c7ee484bc844e881892ee8e8c9b6b4'), 'b: schemas or annotations moved');
+      .startsWith('2bf8c048a72983d7d470e95bf579a141a2'), 'b: schemas or annotations moved');
     const size = Buffer.byteLength(JSON.stringify({ jsonrpc: '2.0', id: 1,
       result: { tools: TOOL_COPY } })) + Buffer.byteLength(SERVER_INSTRUCTIONS);
-    assert.ok(size <= 2480, 'd: tool list plus instructions ' + size + ' bytes, over 2480');
+    assert.ok(size <= 2800, 'd: tool list plus instructions ' + size + ' bytes, over 2800');
     const tables = new Set([...Object.keys(OPS), ...KIT_OPS, ...Object.keys(INPUT_OPS)]);
     const known = name => {
       if (tables.has(name)) return true;

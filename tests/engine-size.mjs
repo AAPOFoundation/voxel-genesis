@@ -1,4 +1,4 @@
-// Plain pin: main d35ea5f.
+// Plain pin: main d35ea5f. Limits [160, 160, 64] since pkg/cap160.
 import { mkdirSync, mkdtempSync, readdirSync } from 'node:fs';
 import { TOOL_COPY as tools, SERVER_INSTRUCTIONS as info } from '../src/copy.mjs';
 const json = JSON.stringify, fails = [];
@@ -18,18 +18,18 @@ const open = (s, args) => {
 };
 const text = json(tools.find(t => t.name === 'world_open').inputSchema.properties.size);
 check('case 1', /width.*depth.*height/.test(text));
-check('case 2', [8, 48, 32].every(n =>
+check('case 2', [8, 160, 64].every(n =>
   new RegExp('(^|[^0-9])' + n + '([^0-9]|$)').test(text)));
 check('case 3 bytes', Buffer.byteLength(json({ jsonrpc: '2.0', id: 1,
-  result: { tools } })) + Buffer.byteLength(info) <= 2480);
+  result: { tools } })) + Buffer.byteLength(info) <= 2800);
 check('case 3 copy', tools.every(t => t.description.length <=
-  (t.name === 'world_build' ? 640 : t.name === 'world_open' ? 224 : 160)));
-for (const size of [[7,8,8], [8,7,8], [8,8,7], [49,8,8], [8,49,8], [8,8,33]]) {
+  (t.name === 'world_build' ? 760 : t.name === 'world_open' ? 224 : 160)));
+for (const size of [[7,8,8], [8,7,8], [8,8,7], [161,8,8], [8,161,8], [8,8,65]]) {
   const s = fresh(), r = open(s, { name: 'bad', size });
   check('case 4 no ' + size, (r.ok === false || r.err === 'size') &&
     !s.world && readdirSync(s.home + '/worlds').length === 0);
 }
-for (const size of [[48,48,32], [8,8,8]]) {
+for (const size of [[160,160,64], [96,96,64], [48,48,32], [8,8,8]]) {
   const s = fresh(), r = open(s, { name: 'good', size });
   check('case 4 yes ' + size, !r.err && r.ok !== false &&
     json([s.world?.w, s.world?.d, s.world?.h]) === json(size));

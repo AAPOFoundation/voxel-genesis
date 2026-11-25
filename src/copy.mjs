@@ -68,13 +68,18 @@ export const C = {
     pond: 'lot: a pond cannot be built on. Choose another lot.',
     same: 'lot: that is already there. Choose another lot or kind.',
     grow: 'grow: only a small home, shop or workshop can grow. Choose another lot.',
+    // COPY-DRAFT: refuse shifts of state with ambiguous coordinate semantics.
+    shiftKit: 'shift: kit parts can contain coordinate expressions and operations. ' +
+      'Use zero shift for this world.',
+    shiftInputs: 'shift: saved clicks use earlier coordinates. ' +
+      'Use zero shift or a world without saved clicks.',
     game: 'game: this world has other rules. Choose fresh or another name.',
     townSize: 'size: a town is always 36 by 36 by 16. Omit size.',
     set: 'save: unknown block set. Use base@1, base@2 or base@3 with this connector.',
     config: 'config: cannot safely edit this file. Check its project server entry.',
     arguments: 'arguments: invalid input. Check the tool schema.',
     tool: 'tool: unknown tool. Read the tool list.',
-    size: 'size: [width, depth, height], each 8 or more, at most [48, 48, 32].',
+    size: 'size: [width, depth, height], each 8 or more, at most [160, 160, 64].',
     match: 'world: settings must match. Omit size and seed, or choose fresh.',
     form: 'op: wrong form. Check the op list.',
     op: 'op: unknown op. Check the op list.',
@@ -212,6 +217,8 @@ export const SERVER_INSTRUCTIONS = (
 export const PROTOCOLS = ['2025-06-18', '2025-03-26', '2024-11-05'];
 export const coinsError = ({ kind, cost, coins }) =>
   kind + ' costs ' + cost + ', you have ' + coins + '.';
+export const writesError = limit => limit <= 20000 ? C.error.writes :
+  C.error.writes.replace('20000', limit.toLocaleString('en-AU'));
 const lotName = code =>
   ({ h: 'home', w: 'work', s: 'shop', p: 'park', '*': 'trees', '#': 'road' })[code];
 const place = i => i % 6 + ' ' + Math.floor(i / 6);
@@ -298,7 +305,7 @@ export const townHud = hud => ({
   end: hud.done ? ending(hud.stars, hud.hearts, hud.par) : ''
 });
 /*protocol*/
-export const PROTOCOL = { initialise: 'initialize', server: 'voxel-genesis', version: '0.6.0' };
+export const PROTOCOL = { initialise: 'initialize', server: 'voxel-genesis', version: '0.7.0' };
 export const TOOL_COPY =
 /*tools:start*/
 [
@@ -307,18 +314,22 @@ export const TOOL_COPY =
     "description": (
       "Open or start a world. Returns size, block and prefab names, viewer link. " +
       "game town: the town game; kit NAME: game parts; from small-town, tiny-garden, " +
-      "hill-village or .png path: built world."
+      "hill-village or .png path: built world. grow: enlarge east, south, up."
     ),
     "inputSchema": {
       "type": "object",
       "properties": {
         "name": { "type": "string", "pattern": "^[a-z0-9-]{1,32}$" },
         "fresh": { "type": "boolean" },
+        "grow": { "type": "boolean" },
+        // COPY-DRAFT: x right and z down follow the server instructions.
+        "shift": { "type": "array", "items": { "type": "integer" }, "minItems": 2, "maxItems": 2,
+          "description": "Move by [x,z]." },
         "game": { "type": "string", "enum": ["town"] },
         "kit": { "type": "string" },
         "from": { "type": "string" },
         "size": { "type": "array", "items": { "type": "integer" }, "minItems": 3, "maxItems": 3,
-          "description": "[width, depth, height], each 8 to [48, 48, 32]." },
+          "description": "[width, depth, height], each 8 to [160, 160, 64]." },
         "seed": { "type": "integer", "minimum": 0, "maximum": 2147483647 }
       },
       "additionalProperties": false
@@ -332,11 +343,14 @@ export const TOOL_COPY =
       "aint,ground,x1,z1,x2,z2]; [cover,block,x1,z1,x2,z2,layers]" +
       "; [hill,ground,cx,cz,r,height]; [drop,block,x,z,count]; [s" +
       "tamp,prefab,x,z,turns]; [scatter,name,x1,z1,x2,z2,n]; [cle" +
-      "ar,x1,y1,z1,x2,y2,z2]; [pop,x,y,z,r]; [car,block,x1,z1,x2," +
+      "ar,x1,y1,z1,x2,y2,z2]; [swap,from,to,x1,y1,z1,x2,y2,z2]; " +
+      "[mirror,x|y|z,at,x1,y1,z1,x2,y2,z2]; " +
+      "[pop,x,y,z,r]; [car,block,x1,z1,x2," +
       "z2]; [pet,block,x,z]; [note,text]; [rep,n,dx,dy,dz,[ops]]. " +
       "[mover,id,block,x,z]; [move,id,x,z]. Stamp: low corner, quarter turns. " +
       "Car: block colour; box route. Ground: grass earth rock path" +
-      " road water deck. Doors face low z at turns 0." +
+      " road water deck. Swap with no box: whole world. " +
+      "Mirror copies each block to 2*at-c; at may be a half. Doors face low z at turns 0." +
       " Game parts, no kit needed: [part,{part:kind/id,..}]; [in,click,x,y,z]."
     ),
     "inputSchema": {
