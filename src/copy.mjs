@@ -305,7 +305,7 @@ export const townHud = hud => ({
   end: hud.done ? ending(hud.stars, hud.hearts, hud.par) : ''
 });
 /*protocol*/
-export const PROTOCOL = { initialise: 'initialize', server: 'voxel-genesis', version: '0.7.0' };
+export const PROTOCOL = { initialise: 'initialize', server: 'voxel-genesis', version: '0.7.1' };
 export const TOOL_COPY =
 /*tools:start*/
 [

@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+## 0.7.1
+
+[//]: # (COPY-DRAFT)
+
+- README covers world size, growing, shift, `swap` and `mirror`. Design notes give the 160 write budget.
+
 ## 0.7.0
 
 [//]: # (COPY-DRAFT)

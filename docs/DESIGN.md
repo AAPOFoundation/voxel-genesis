@@ -67,10 +67,10 @@ Doors face low z at turns 0, visible from the default yaw of pi minus 0.7.
 Rotating a prefab changes its footprint around the submitted low corner.
 Rock footings fill terrain gaps below its highest ground column.
 
-The README lists all 13 operations with examples.
+The README lists all 18 operations with examples.
 Batches allow 1 to 200 submitted operations and 2,000 expanded operations.
 The attempted cell write limit is 20,000 up to the old 48 by 48 by 32 volume.
-Above that volume it scales proportionally, rounded up, to 160,000 at 96 by 96 by 64.
+Above that volume it scales proportionally, rounded up, to 444,445 at 160 by 160 by 64.
 Repetition cannot nest. A vertical shift requires a 3D operation.
 Cars follow rectangular routes and pets use plantable columns. A world holds at most 12 life definitions.
 These definitions enter the hash; animated positions do not.
@@ -103,7 +103,8 @@ The current format is v=1, set=base@3, with rules=none@0 or town@1.
 base@1 and base@2 retain their block ids, prefab recipes and replay hashes.
 Old catalogue sets retain the original auto planner; new worlds use affordable, need-ranked advice.
 Clone, undo and viewer snapshots carry the world's set. New worlds use base@3 without migration.
-Later records contain ops or undo. Revision is the number of records after the header.
+Later records contain ops, undo or grow. A grow record holds the new size and an optional shift.
+Revision is the number of records after the header.
 Undo appends a record, so revisions remain monotonic. Fresh opening preserves a .bak.jsonl file.
 
 Unknown or absent sets and incompatible format or rule versions are refused.

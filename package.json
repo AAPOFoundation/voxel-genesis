@@ -1,6 +1,6 @@
 {
   "name": "voxel-genesis",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "description": "A local MCP server and browser viewer for AI agents to build a voxel world.",
   "keywords": ["mcp", "model-context-protocol", "voxel", "ai-agents", "world-builder", "deterministic"],
   "license": "Apache-2.0",

@@ -3,6 +3,7 @@
 <img src="docs/img/harbour-village-v1.jpg" alt="A harbour village built by an agent" width="640">
 
 Build a voxel world with an agent through four local tools.
+Worlds grow in place up to 160 by 160 blocks and 64 high.
 Watch the town take shape in a browser on your machine.
 How to build one: docs/BUILDING-A-WORLD.md.
 
@@ -142,7 +143,7 @@ Use content-type: application/json. This local JSON API is separate from the MCP
 
 | Tool | Purpose |
 |---|---|
-| world_open | Open or start a named world and read its catalogue and viewer hint |
+| world_open | Open, start or grow a named world and read its catalogue and viewer hint |
 | world_build | Build a group of operations together |
 | world_look | Read top, height, side, info or town views |
 | world_undo | Append an undo for one to twenty builds |
@@ -177,6 +178,8 @@ Each example below is one operation inside the ops array.
 | move | `["mover","dog","cream",2,2]; ["move","dog",8,8]` | Walk round walls to a cell |
 | note | ["note","Rain is coming."] | Add a short line to the world feed |
 | rep | ["rep",3,6,0,0,[["stamp","cottage",2,2,0]]] | Repeat a shifted operation list |
+| swap | ["swap","cream","plaster",0,1,0,15,9,15] | Replace one block with another; leave out the box for the whole world |
+| mirror | ["mirror","x",15.5,0,1,0,15,9,31] | Copy blocks across a plane on x, y or z |
 
 Stamp turns are quarter turns from zero to three. Lower terrain receives rock footings.
 Doors face low z at turns 0.
@@ -185,6 +188,27 @@ Ground blocks are grass, earth, rock, path, road, water and deck.
 
 Blocks: `grass`, `earth`, `rock`, `path`, `road`, `water`, `deck`, `brick`, `cream`, `sun`, `slate`, `roof`, `timber`, `trunk`, `leaf`, `needle`, `plaster`, `amber`, `blue`, `tile`.
 Prefabs: `cottage`, `house`, `shop`, `tower`, `barn`, `tree`, `pine`, `bridge`, `well`, `bench`, `workshop`, `market`.
+
+## World size and growing
+
+[//]: # (COPY-DRAFT)
+
+New worlds are 32 wide, 32 deep and 24 high. Pass size as width, depth and height to start bigger.
+Width and depth go up to 160, and height goes up to 64.
+To enlarge a world later, open it again with a bigger size and grow set to true:
+
+```json
+[
+  {"tool":"world_open","arguments":{"name":"example-town","fresh":true}},
+  {"tool":"world_open","arguments":{"name":"example-town","size":[64,64,32],"grow":true}}
+]
+```
+
+Growing keeps every block and adds grass to the new area east, south and up.
+Add a shift of x and z to move the old blocks east by x and south by z.
+The world then grows west and north as well.
+Grows replay, undo and export like builds. The town game cannot grow.
+Kit worlds and worlds with saved clicks can grow, but cannot shift.
 
 ## Play the town game
 
